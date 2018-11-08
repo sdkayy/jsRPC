@@ -20,13 +20,13 @@ export default class XboxConsole {
   }
 
   setMemory(address, data) {
-    this.sendCommand(`setmem addr={address} data={data}`);
+    this.sendCommand(`setmem addr=${address} data=${data}`);
   }
 
   /* Couldn't test this */
   getMemory(address, rlength) {
     let _tempLength = this.readData.length;
-    this.sendCommand(`getmemex addr={address} length={rlength}`);
+    this.sendCommand(`getmemex addr=${address} length=${rlength}`);
     let _data = this.readData.slice(_tempLength, _tempLength + rlength);
     return _data;
   }
