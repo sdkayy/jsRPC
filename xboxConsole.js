@@ -7,12 +7,12 @@ export default class XboxConsole {
       port,
       ip
     );
-    s.on("data", function(data) {
-      readData.push(data);
-      console.log("DATA " + s.remoteAddress + ": " + data);
-    });
     this.socket = s;
     this.readData = [];
+    s.on("data", function(data) {
+      this.readData.push(data);
+      console.log("DATA " + s.remoteAddress + ": " + data);
+    });
   }
 
   sendCommand(command) {
@@ -25,9 +25,9 @@ export default class XboxConsole {
 
   /* Couldn't test this */
   getMemory(address, rlength) {
-    let _tempLength = readData.length;
+    let _tempLength = this.readData.length;
     this.sendCommand(`getmemex addr={address} length={rlength}`);
-    let _data = readData.slice(_tempLength, _tempLength + rlength);
+    let _data = this.readData.slice(_tempLength, _tempLength + rlength);
     return _data;
   }
 
